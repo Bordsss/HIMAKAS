@@ -1,0 +1,146 @@
+Here's a comprehensive UX/UI blueprint for HIMAKAS IT Solutions — structured as an agency-grade design document with all the deliverables you need.Now here's the full design blueprint — click any node in the diagram above to drill deeper into any section.
+
+---
+
+## 1. Design system
+
+**Color palette**
+
+The palette uses three core ramps:
+
+- **Primary** — Deep Indigo `#1B0A4F` → `#6C4DFF` (brand confidence, CTAs, interactive elements)
+- **Accent** — Electric Teal `#00C9A7` (hover states, active filters, success indicators)
+- **Neutral** — Slate `#0F172A` → `#F8FAFC` (backgrounds, text hierarchy, borders)
+- **Semantic** — Amber for warnings/featured badges, Coral for error states, Green for "Completed" status
+
+Dark mode ships by default. The hero and project gallery run on a near-black `#080C14` surface. Lighter sections (services, process) use `#111827`. The footer inverts to near-white.
+
+**Typography scale** — use Inter or Plus Jakarta Sans as the system font:
+
+| Role | Size | Weight | Line height |
+|---|---|---|---|
+| Display hero | 80–96px | 800 | 1.0 |
+| H1 section | 48–56px | 700 | 1.1 |
+| H2 subsection | 32–36px | 600 | 1.2 |
+| H3 card title | 20–22px | 600 | 1.3 |
+| Body large | 18px | 400 | 1.7 |
+| Body default | 16px | 400 | 1.7 |
+| Caption / badge | 12–13px | 500 | 1.4 |
+
+**Spacing system** — 4px base unit: `4, 8, 12, 16, 24, 32, 48, 64, 96, 128px`. Section vertical rhythm: `120px` desktop, `72px` mobile.
+
+---
+
+## 2. Component library
+
+**Project card** — the most important component in the system.
+
+Structure: `[thumbnail 16:9] → [category pill] → [project name H3] → [tech stack tags] → [status badge] → [one-line description]`
+
+On hover: the card lifts `translateY(-4px)`, a subtle indigo glow appears on the border, a "View case study →" ghost button fades in over the thumbnail at 80% overlay. The tech stack tags animate in staggered from left. Entire interaction completes in 200ms — fast enough to feel snappy, slow enough to feel polished.
+
+**Status badge system:**
+- `Completed` → Teal pill
+- `In Progress` → Amber pill with a pulsing dot
+- `Featured` → Indigo gradient pill
+- `Enterprise` → Dark slate pill with subtle shimmer
+
+**Filter chip design:** Horizontal scrollable row on mobile, wrapping grid on desktop. Active chip: filled indigo background, white text. Inactive: ghost border, muted text. Transition on all: 150ms ease.
+
+**Search bar:** Full-width with a magnifier icon, placeholder `"Search 40+ projects…"`. As user types, cards that don't match scale down to 0.95 and fade to 30% opacity — they don't disappear, giving spatial context. No layout reflow.
+
+---
+
+## 3. Section-by-section wireframe rules
+
+**Hero section**
+
+Layout: full-viewport height. Left column (60%): display headline in two lines, sub-headline, two CTA buttons (primary "Explore Our Work" + ghost "Schedule Call"), three stat counters below. Right column (40%): abstract 3D mesh or particle animation — keep it subtle, not distracting. Fallback for `prefers-reduced-motion`: static geometric graphic.
+
+Headline suggestion: `"We build digital products that drive results."` — active, direct, no jargon.
+
+Stats row: `40+ Projects · 12+ Technologies · 5 Industries · 3 Years`
+
+**Project Explorer gallery**
+
+This is a `sticky` filter bar at the top of the section once the user scrolls to it. Category pills + search in one row. Below: a masonry or uniform grid (prefer uniform 3-col desktop, 2-col tablet, 1-col mobile). Load 9 cards initially, then "Load more" (no infinite scroll — gives visitors control).
+
+One `"Featured"` card per row maximum; it spans 2 columns to break visual rhythm.
+
+**Featured projects**
+
+Full-bleed alternating layout: odd projects have image-left/text-right, even projects flip. Text side contains the four storytelling blocks — Problem (1–2 sentences), Solution (2–3 sentences), Technologies (tag list), Results (1–3 numbers in large type). Use a `border-left: 3px solid #6C4DFF` accent on the Problem block to visually anchor the narrative.
+
+**Services section**
+
+7 service cards in a 3–4 column grid. Each card: Tabler icon at 32px, service name, 2-sentence description, starting-price indicator (optional), "Learn more" ghost link. On hover, the card border transitions from neutral gray to the indigo primary. No popups or modals — keep it scannable.
+
+**Technology stack**
+
+Avoid a flat logo wall. Instead: group technologies by category in a radial or cluster layout. Cluster 1: Frontend (HTML, CSS, JS, Flutter). Cluster 2: Backend (PHP, Python, C#). Cluster 3: Database (MySQL). Cluster 4: Hardware (Arduino, ESP32, Raspberry Pi). Cluster 5: Tools (Figma, WordPress). Draw faint connecting lines between clusters that share project types. On hover of any logo, highlight the cluster it belongs to.
+
+**Development process**
+
+Seven-stage horizontal timeline on desktop, vertical accordion on mobile. Each stage: icon, name, 1-sentence description, typical duration indicator. Active stage on scroll highlight: as the user scrolls through, the active stage pill glows and the connecting line "fills in" with an animated progress stroke. This is a `IntersectionObserver`-driven scroll animation.
+
+Stages: Discovery → Research → Design → Development → Testing → Deployment → Ongoing Support
+
+**Testimonials**
+
+Magazine-style layout: one large featured testimonial (full photo, extended quote, company logo) flanked by two smaller testimonials stacked vertically. Auto-rotates every 6 seconds with a pause on hover. Keyboard navigation: left/right arrows. Screen reader: each testimonial is a `<blockquote>` with ``.
+
+**Contact section**
+
+Split layout: left side has the form, right side has contact details + a "Book a 30-min call" button (Calendly-style embed or link). Form fields: Name, Email, Budget range (select), Project type (select), Brief description (textarea). Submit button: `"Send your project brief →"`. On submit: inline success state replaces the form — no page reload, no toast notification that disappears before they read it.
+
+---
+
+## 4. Animation guidelines
+
+**Philosophy:** Motion has purpose, not personality. Every animation communicates state — loading, transition, success, or emphasis. Nothing bounces for decoration.
+
+| Element | Animation | Duration | Easing |
+|---|---|---|---|
+| Page hero entry | Staggered fade-up per element | 600ms, 80ms stagger | ease-out-expo |
+| Card hover lift | translateY(-4px) | 200ms | ease-out |
+| Filter change | Cards cross-fade with opacity/scale | 300ms | ease-in-out |
+| Section entry | Fade-up on IntersectionObserver | 500ms | ease-out |
+| Process timeline fill | Stroke-dashoffset draw | 800ms per stage | linear |
+| Number counters | Count-up animation | 1200ms | ease-out-cubic |
+| Testimonial transition | Crossfade | 400ms | ease-in-out |
+
+All animations wrap in `@media (prefers-reduced-motion: reduce) { animation: none; transition: none; }`.
+
+---
+
+## 5. Accessibility plan
+
+Structure every section with proper ARIA landmarks: `<nav>`, `<main>`, `<section aria-labelledby>`, `<footer>`. The filter bar uses `role="group"` with `aria-label="Project categories"`. Each filter button has `aria-pressed`. Search input has `aria-label` and `aria-live="polite"` on the results count (`"Showing 12 of 40 projects"`).
+
+Focus ring: `outline: 3px solid #6C4DFF; outline-offset: 3px` — visible on every interactive element, suppressed for mouse users via `:focus-visible`. Tab order matches visual reading order. Skip-to-content link visible on first Tab keypress.
+
+Color contrast: all body text meets 4.5:1. Large display text meets 3:1. Badge text uses dark-on-light exclusively within each color family, never generic black.
+
+---
+
+## 6. Conversion optimization
+
+Place a **secondary CTA** at the end of every section — not a hard sell, but a contextual prompt. After the project gallery: `"Inspired? Let's build yours."` After the services section: `"Not sure which service fits? Book a free discovery call."` After testimonials: `"Join 20+ happy clients."` These micro-CTAs carry visitors toward the contact form without interrupting the scroll.
+
+**Lead magnet idea:** Add a downloadable `"Our Project Process — What to Expect"` PDF behind the contact form as an incentive for email capture. Low friction, high perceived value.
+
+**Social proof signals** scattered throughout: project count in the hero, client logos near the top fold, a `"Currently accepting projects"` availability badge near the contact CTA.
+
+---
+
+## 7. Figma frame structure
+
+Organize frames in this order, all at `1440px` width:
+
+`00_Design System` → `01_Hero` → `02_Project Explorer` → `03_Featured Projects` → `04_Services` → `05_Tech Stack` → `06_Process` → `07_Achievements` → `08_Testimonials` → `09_Contact` → `10_Mobile (375px)` → `11_Tablet (768px)`
+
+Use auto-layout throughout — no hardcoded pixel positions. Group every section's components into a local component library so the dev handoff exports cleanly. Name every layer. Annotate interaction states: default, hover, focus, active, disabled.
+
+---
+
+This blueprint gives you everything needed to move directly into Figma wireframes, then high-fidelity comps. Click any node in the diagram above for a deeper dive into any specific section — happy to expand on layouts, component specs, or interaction patterns for any part of the site.
